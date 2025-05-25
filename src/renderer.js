@@ -1,7 +1,33 @@
+/**
+ * This file will automatically be loaded by webpack and run in the "renderer" context.
+ * To learn more about the differences between the "main" and the "renderer" context in
+ * Electron, visit:
+ *
+ * https://electronjs.org/docs/tutorial/process-model
+ *
+ * By default, Node.js integration in this file is disabled. When enabling Node.js integration
+ * in a renderer process, please be aware of potential security implications. You can read
+ * more about security risks here:
+ *
+ * https://electronjs.org/docs/tutorial/security
+ *
+ * To enable Node.js integration in this file, open up `main.js` and enable the `nodeIntegration`
+ * flag:
+ *
+ * ```
+ *  // Create the browser window.
+ *  mainWindow = new BrowserWindow({
+ *    width: 800,
+ *    height: 600,
+ *    webPreferences: {
+ *      nodeIntegration: true
+ *    }
+ *  });
+ * ```
+ */
+
 import "./index.css";
 import QRCode from "qrcode";
-
-console.log("Renderer chargé"); // Pour déboguer
 
 const form = document.querySelector("#qr-form");
 const input = document.querySelector("#text");
@@ -9,18 +35,7 @@ const canvas = document.querySelector("#qr-canvas");
 
 form.addEventListener("submit", async (e) => {
 	e.preventDefault();
-	const text = input.value.trim();
-	if (!text) {
-		console.log("Aucun texte");
-		return;
-	}
-	try {
-		await QRCode.toCanvas(canvas, text, {
-			errorCorrectionLevel: "H",
-			width: 256,
-		});
-		console.log("QR Code généré !");
-	} catch (err) {
-		console.error("Erreur QR:", err);
-	}
+	const text = input.value;
+	if (!text) return;
+	await QRCode.toCanvas(canvas, text, { errorCorrectionLevel: "H" });
 });
