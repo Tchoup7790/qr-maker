@@ -3,17 +3,27 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Hello World!</title>
   <title>QR Code Generator</title>
 </head>
 
 <body>
-  <h1>Générateur de QR Code</h1>
   <form id="qr-form">
-    <input id="text" type="text" placeholder="Texte ou URL">
-    <button type="submit">Générer</button>
+    <h2>Générateur de QR Code</h2>
+    <label for="text-input">Valeur du QRcode :</label>
+    <input id="text-input" type="text" placeholder="Texte ou URL">
+    <label for="type-select">Style :</label>
+    <select id="type-select" name="type">
+      <option value="dots">À pois</option>
+      <option value="rounded">Arrondi</option>
+      <option value="classy">Classique</option>
+      <option value="classy-rounded">Classique arrondi</option>
+      <option value="square">Carré</option>
+      <option value="extra-rounded">Très arrondi</option>
+    </select>
+    <button type="submit-button">Générer</button>
   </form>
-  <canvas id="qr-canvas"></canvas>
+  <div id="canvas-div"></div>
+  <button type="button" id="download-button">Télécharger le QR-Code</button>
   <script src="renderer.js"></script>
 </body>
 
