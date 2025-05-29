@@ -33,42 +33,41 @@ import QRCodeStyling from "qr-code-styling";
 const form = document.getElementById("qr-form");
 const text = document.getElementById("text-input");
 const canvas = document.getElementById("canvas-div");
-const download = document.getElementById("download-button")
-const type = document.getElementById("type-select")
+const download = document.getElementById("download-button");
+const type = document.getElementById("type-select");
 
-let qrCode = null
+let qrCode = null;
 
 // Hundle form submit
 form.addEventListener("submit", async (e) => {
-	e.preventDefault();
-	const textValue = text.value;
-	const typeValue = type.value;
-	if (!textValue || !typeValue) return;
-	qrCode = new QRCodeStyling({
-		//        image: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
-		type: "svg",
-		data: textValue,
-		dotsOptions: {
-			color: "#000",
-			type: typeValue
-		},
-		backgroundOptions: {
-			color: "#fff",
-		},
-		imageOptions: {
-			crossOrigin: "anonymous",
-			margin: 20
-		}
+  e.preventDefault();
+  const textValue = text.value;
+  const typeValue = type.value;
+  if (!textValue || !typeValue) return;
+  qrCode = new QRCodeStyling({
+    //        image: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+    type: "svg",
+    data: textValue,
+    dotsOptions: {
+      color: "#000",
+      type: typeValue,
+    },
+    backgroundOptions: {
+      color: "transparent",
+    },
+    imageOptions: {
+      crossOrigin: "anonymous",
+      // margin: 20
+    },
+  });
+  canvas.innerHTML = "";
+  qrCode.append(canvas);
 
-	})
-	canvas.innerHTML = ''
-	qrCode.append(canvas)
-
-	download.style.display = "block"
+  download.style.display = "block";
 });
 
 // Hundle download Button
 download.addEventListener("click", () => {
-	if (!qrCode) return;
-	qrCode.download({ name: "qr-code", extension: "png" })
-})
+  if (!qrCode) return;
+  qrCode.download({ name: "qr-code", extension: "png" });
+});
